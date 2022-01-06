@@ -1,0 +1,29 @@
+Variables globales
+Semaphore coche_libre(0);
+Semaphore pasajero_a_bordo(0);
+Semaphore final_de_recorrido(0);
+Proceso pasajero
+void Pasajero() {
+  ... DEAMBULA POR EL MUSEO ...
+  // Espera por un coche libre
+  P (coche_libre);
+  // Se sube al coche 
+  V (pasajero_a_bordo);
+  // disfruta del paseo
+  // El coche le notifica que se acabó el paseo
+  P (final_de_recorrido);
+}
+Proceso coche
+void Coche() {
+  // hace el recorrido una y otra vez
+Nombre
+  loop {
+// Indica que está libre
+V (coche_libre);
+// Espera por un pasajero
+P (pasajero_a_bordo);
+     ... HACE EL RECORRIDO ...
+// Termina el paseo y se lo indica al pasajero 
+V (final_de_recorrido);
+  }
+}
